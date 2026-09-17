@@ -1,0 +1,2 @@
+import { useEffect } from 'react'
+export default function LenisProvider(){useEffect(()=>{let lenis, raf;import('@studio-freight/lenis').then(({default:Lenis})=>{lenis=new Lenis({duration:1.15,smoothWheel:true,smoothTouch:false});const loop=(time)=>{lenis.raf(time);raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop)});return()=>{if(raf)cancelAnimationFrame(raf);if(lenis)lenis.destroy()}},[]);return null}
