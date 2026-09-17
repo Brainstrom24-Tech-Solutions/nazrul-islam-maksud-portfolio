@@ -90,19 +90,32 @@ const expertise = [
 
 const books = [
   {
-    "title": "আল কোরআন কি ও কেন",
+    "title": "The Quran: What and Why",
     "cover": "/books/al-quran-ki-o-keno.png",
+    "width": 1049,
+    "height": 1500,
     "url": "https://www.rokomari.com/book/286975/all-quran-ki-o-keno"
   },
   {
-    "title": "সাফল্যের মূলমন্ত্র",
+    "title": "The Key to Success",
     "cover": "/books/safollyer-mulmontro.png",
+    "width": 1049,
+    "height": 1500,
     "url": "https://www.rokomari.com/book/224031/safollyer-mulmontro"
   },
   {
-    "title": "মানব জীবনের উদ্দেশ্য",
+    "title": "The Purpose of Human Life",
     "cover": "/books/manob-jiboner-uddeshsho.png",
+    "width": 1049,
+    "height": 1500,
     "url": "https://www.rokomari.com/book/554273/manob-jiboner-uddeshsho"
+  },
+  {
+    "title": "Knowing the Creator",
+    "cover": "/books/knowing-the-creator.jpeg",
+    "width": 843,
+    "height": 1264,
+    "url": null
   }
 ];
 
@@ -427,32 +440,41 @@ export default function Home() {
           <div className="container selected-books">
             <div className="eyebrow dark-text reveal">Selected books</div>
             <div className="books-grid">
-              {books.map((book) => (
-                <article className="book-card reveal" key={book.url}>
-                  <a
-                    className="book-link"
-                    href={book.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={book.title + " — Buy on Rokomari (opens in a new tab)"}
-                  >
-                    <div className="book-artwork">
-                      <Image
-                        className="book-cover"
-                        src={book.cover}
-                        alt={book.title + " — নজরুল ইসলাম মাকসুদ"}
-                        width={1049}
-                        height={1500}
-                        sizes="(max-width: 560px) 70vw, (max-width: 900px) 35vw, 240px"
-                      />
-                    </div>
-                    <h3 lang="bn">{book.title}</h3>
-                    <span className="book-buy">
-                      Buy on Rokomari <FiArrowUpRight aria-hidden="true" />
-                    </span>
-                  </a>
-                </article>
-              ))}
+              {books.map((book) => {
+                const BookWrapper = book.url ? "a" : "div";
+                return (
+                  <article className="book-card reveal" key={book.cover}>
+                    <BookWrapper
+                      className="book-link"
+                      href={book.url || undefined}
+                      target={book.url ? "_blank" : undefined}
+                      rel={book.url ? "noopener noreferrer" : undefined}
+                      aria-label={book.url ? book.title + " — Buy on Rokomari (opens in a new tab)" : undefined}
+                    >
+                      <div className="book-artwork">
+                        <Image
+                          className="book-cover"
+                          src={book.cover}
+                          alt={book.title + " — Nazrul Islam Maksud"}
+                          width={book.width}
+                          height={book.height}
+                          sizes="(max-width: 560px) 70vw, (max-width: 1100px) 35vw, 240px"
+                        />
+                      </div>
+                      <h3>{book.title}</h3>
+                      {book.url ? (
+                        <span className="book-buy">
+                          Buy on Rokomari <FiArrowUpRight aria-hidden="true" />
+                        </span>
+                      ) : (
+                        <span className="book-buy book-coming-soon">
+                          Link will be available soon
+                        </span>
+                      )}
+                    </BookWrapper>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
